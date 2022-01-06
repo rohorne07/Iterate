@@ -15,12 +15,13 @@ def str_to_list(string,
                 Feat_length1, 
                 Feat_length2):
     '''
+    
     Input: 
     Feature string, start and stop points for feature selection
     
     Output:
     list of feature subset
-
+    
     '''
     string = string.strip('][').split(', ')
     string2 = []
@@ -160,7 +161,7 @@ def run_algorithm_residuals(df_path,
     df_test['sigma'] = sigma
     temp_array = algorithm.feature_importances_
     
-    if uncertainty == 0.1:
+    if uncertainty > 0:
         df_test['acquire'] = acquisition_rank(y_pred, sigma, 0.1)
         df_top100 = df_test.nlargest(100, 'acquire')
     #analyse predicted subset
