@@ -16,10 +16,10 @@ def str_to_list(string,
                 Feat_length2):
     '''
     
-    Input: 
+    Args: 
     Feature string, start and stop points for feature selection
     
-    Output:
+    Returns:
     list of feature subset
     
     '''
@@ -41,15 +41,15 @@ def new_train(df_path,
     
     '''
     
-    Input: 
-    Path to training dataframe, path to testing dataframe, string 
+    Args: 
+    path string (training dataframe), path string (testing dataframe), string 
     identifying target y value column, string identifying feature column, 
-    start and stop points of the feature set to be used, and bools to choose
+    start and stop ints of the feature set to be used, bools to choose
     whether to only train on a single substructure set.
     
-    Output:
-    X_obs array, y_obs array, test dataframe with training instances removed,
-    training dataframe
+    Returns:
+    X_obs array, y_obs array, X_test array, test dataframe with training 
+    instances removed, training dataframe
     
     '''
     
@@ -91,11 +91,10 @@ def acquisition_rank(y_pred,
     
     '''
     
-    Input: 
-    Predicted y values, predicted variance (if using GP), weight to be
-    given to uncertainty during ranking
+    Args: 
+    Predicted y array, predicted var array, weight int of uncertainty
     
-    Output:
+    Returns:
     Ranking of molecules minimising uncertainty and maximising y
 
     '''
@@ -119,14 +118,13 @@ def run_algorithm_residuals(df_path,
     
     '''
     
-    Input: 
-    Path to training dataframe, path to testing dataframe,
-    first layer algorithm, second layer GP kernel, string identifying target 
-    y value column, string identifying feature column, uncertainty weighting, 
-    start and stop points of the feature set to be used, bools to choose whether 
-    to only train on a single substructure set, random state of both algorithms.
+    Args: 
+    Path string to training dataframe, path string to testing dataframe,
+    sklearn ML model, GP kernel, y string, feature string, start and stop ints
+    of the feature set to be used, uncertainty weighting int, bools to choose
+    whether to only train on a single substructure set, random state int 
     
-    Output:
+    Returns:
     Dataframe of top 100 molecules predicted, dataframe of whole test set with
     predicted values, feature importance dataframe, X_obs feature array, y_obs
     target array, X_test feature array
@@ -178,10 +176,10 @@ def RUN(filename1,):
     
     '''
     
-    Input: 
+    Args: 
     String to append to output filenames
     
-    Output:
+    Returns:
     After running 10 trainings from 10 different random starting states the top
     100 molecules from each random state are appended into a dataframe labelled
     Top_1000. All of the test values are grouped on molecule identifier,
