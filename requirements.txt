@@ -1,0 +1,11 @@
+MulticoreTSNE==0.1
+fbpca==1.0
+matplotlib
+numpy
+pandas
+scikit-learn
+scipy
+seaborn
+torch==1.4.0
+umap-learn==0.3.10
+jtnnencoder
