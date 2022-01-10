@@ -149,7 +149,7 @@ class estimator_pipeline(BaseEstimator):
         return r2_score(y, y2)
 
 
-df_pred, df_test = random_sample('/Users/rohorne07/Library/Mobile Documents/com~apple~CloudDocs/Documents/Machine Learning/Docking/ZINC CSVs/Docker_Tanimoto_ZINC_FRED_PCID.csv', 4000, 'VINA')
+df_pred, df_test = random_sample('path_to_dir', 4000, 'VINA')
 X_obs, y_obs, X_test, y_test = train_test(df_pred, df_test, 'Feature_half')
 
 kernel2 = C(1.0, 'fixed') * Matern(length_scale=1.0, length_scale_bounds='fixed', nu=1.5)
