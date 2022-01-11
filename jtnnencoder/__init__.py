@@ -1,0 +1,1 @@
+from .jtnnencoder import JTNNEmbed
