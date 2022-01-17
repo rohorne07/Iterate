@@ -432,10 +432,12 @@ algorithm = RandomForestRegressor(bootstrap= False,
                                  min_samples_split = 2,
                                  n_estimators = 950,
                                  random_state=1)
-ROOT = 'path_to_directory'
-og_path = ROOT + 'ZINC CSVs/Docker_Tanimoto_ZINC_FRED_PCID.csv'
-output_path = ROOT + 'ITERATION/Summary/'
-output_fig_path = ROOT + 'ITERATION/Figures/'
+ROOT = '../data/'
+og_path = ROOT+'zinc.csv'
+os.mkdir(ROOT+'ITERATION/Summary/')
+os.mkdir(ROOT+'ITERATION/Figures/')
+output_path = ROOT+'ITERATION/Summary/'
+output_fig_path = ROOT+'ITERATION/Figures/'
 
 summary = iterate_residuals(kernel,
                             og_path,
