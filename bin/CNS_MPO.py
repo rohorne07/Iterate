@@ -107,7 +107,7 @@ def cns_mpo(value, entry_type=None):
         print("Warning: wrong field in the CNS_MPO calculations")
         return None
 
-ROOT = "path_to_dir"
+ROOT = "../data/zinc.csv"
 
 import pandas as pd
 
