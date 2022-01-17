@@ -122,4 +122,4 @@ df['MPO_TPSA'] = df['TPSA'].apply(float).apply(cns_mpo, args=('TPSA',))
 df['MPO_HBD'] = df['HBD'].apply(float).apply(cns_mpo, args=('H bond donors',))
 df['CNS_MPO'] = df[['MPO_MW', 'MPO_logD', 'MPO_logP', 'MPO_basicpKa', 'MPO_TPSA', 'MPO_HBD']].sum(axis=1)
 
-df.to_csv(ROOT+'_MPO2.csv')
+df.to_csv(ROOT+'_MPO.csv')
