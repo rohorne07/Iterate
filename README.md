@@ -14,4 +14,8 @@ The bin file contains some example functions for carrying out the methods used i
   - iteration_simulation.py produces summary data files and box plots for a simulated version of the iterative cycle carried out on the docking scores
   - predict.py carries out a prediction on the aggregation data
 
-Note: For use of the pip installable jtnnencoder, a separate environment using Python 3.6.13 is required, and the module versions specified in requirements_encoder.txt
+Notes: 
+For use of the pip installable jtnnencoder, a separate environment using Python 3.6.13 is required, and the module versions specified in requirements_encoder.txt
+Values required for the CNS_MPO function can be acquired via JChem
+
+
