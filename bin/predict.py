@@ -237,12 +237,16 @@ algorithm = RandomForestRegressor(bootstrap= False,
 kernel = C(1., 'fixed') * Matern(length_scale=1.0, length_scale_bounds='fixed', nu=1.5)
 
 
-ROOT = 'path to directory'
+ROOT = '../data/'
 
-og_path = ROOT + 'cleaned_thalves.csv'
-og_path2 = ROOT + 'Docker_Tanimoto_ZINC_PCID.csv'
+og_path = ROOT + 'Docker.csv'
+og_path2 = ROOT + 'zinc.csv'
+
+os.mkdir('ITERATION/Summary/')
+os.mkdir('ITERATION/Figures/')
+
 output_path = ROOT + 'ITERATION/Summary/'
 output_fig_path = ROOT + 'ITERATION/Figures/'
     
-RUN('ITERATION4')   
+RUN('ITERATION')   
     
