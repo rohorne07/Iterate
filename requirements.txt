@@ -3,7 +3,7 @@ fbpca==1.0
 matplotlib==3.3.4
 numpy==1.20.1
 pandas==1.2.4
-scikit-learn
+scikit-learn==0.24.1
 scipy==1.6.2
 seaborn==0.11.1
 torch==1.4.0
