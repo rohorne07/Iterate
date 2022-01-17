@@ -1,11 +1,11 @@
 MulticoreTSNE==0.1
 fbpca==1.0
-matplotlib
-numpy
-pandas
+matplotlib==3.3.4
+numpy==1.20.1
+pandas==1.2.4
 scikit-learn
-scipy
-seaborn
+scipy==1.6.2
+seaborn==0.11.1
 torch==1.4.0
 umap-learn==0.3.10
-jtnnencoder
+jtnnencoder==0.1
