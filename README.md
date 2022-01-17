@@ -9,7 +9,7 @@ The data file contains:
   - the initial molecules found via docking and similarity searches and their normalised thalves
 
 The bin file contains some example functions for carrying out the methods used in the submitted paper including:
-  - Dimensionality_reduction.py creates PCA and UMAP representations of the molecular space (tSNE not included here as the package is deprecated and requires a custom environment)
+  - dimensionality_reduction.py creates PCA and UMAP representations of the molecular space (tSNE not included here as the package is deprecated and requires a custom environment)
   - cross_val.py produces a learning curve for the docking scores
   - iteration_simulation.py produces summary data files and box plots for a simulated version of the iterative cycle carried out on the docking scores
   - predict.py carries out a prediction on the aggregation data
