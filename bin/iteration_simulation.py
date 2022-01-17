@@ -2,6 +2,7 @@ import seaborn as sns
 import random
 import pandas as pd
 import numpy as np
+import os
 from matplotlib import pyplot as plt
 
 from statsmodels.formula.api import ols
