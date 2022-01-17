@@ -32,7 +32,7 @@ algorithm = RandomForestRegressor(bootstrap= False,
 kernel = C(1., 'fixed') * Matern(length_scale=1.0, length_scale_bounds='fixed', nu=1.5)
 
 ROOT = '../data/'
-og_path = ROOT + 'Docking_Set.csv'
+og_path = ROOT + 'docker.csv'
 og_path2 = ROOT + 'zinc.csv'
 output_path = ROOT
 output_fig_path = ROOT
@@ -117,53 +117,46 @@ um = UMAP(
 )
 X_umap = um.fit_transform(X)
 
-from MulticoreTSNE import MulticoreTSNE as TSNE
-
-tsne = TSNE(
-        n_components=2,
-        n_jobs=20,
-        random_state=1
-    )
-
-X_tsne = tsne.fit_transform(X)
 
 
-def graph_parent(file, title, stage):
+def graph_parent(name):
+
+    os.makedirs(ROOT+'dimensionality_reduction/')
+
     for name, coords in zip(
-            [ 'pca', 'umap', 'tsne' ],
-            [ X_pca, X_umap, X_tsne ],
+            [ 'pca', 'umap', ],
+            [ X_pca, X_umap, ],
     ):
         plt.figure()
-        sns.scatterplot(x=coords[labels==1, 0], y=coords[labels_48==1, 1],
+        sns.scatterplot(x=coords[labels==1, 0], y=coords[labels==1, 1],
                         color='xkcd:blue', alpha=0.1,label='Test Subset')
-        plt.scatter(x=coords[stage==1, 0], y=coords[stage==1, 1],
-                    color='orange', alpha=1.0, marker='x', linewidths=10, label='Training Subset')
+        plt.scatter(x=coords[labels==0, 0], y=coords[labels==0, 1],
+                    color='orange', alpha=1.0, marker='x', label='Training Subset')
         
         plt.legend()
         plt.scatter(x=coords[0:4, 0], y=coords[0:4, 1],
                     color='tab:red', alpha=1.0, marker='o', linewidths=5, label='Parents')
 
-        os.mkdir(ROOT+'higher dimension/{}/{}/'
-                    .format(file,title))
-        plt.savefig(ROOT+'higher dimension/{}/{}/latent_scatter_{}_ypred_{}{}.png'
-                    .format(file,title, name, 'RFR+GP', 'asyn'), dpi=300)
+
+        plt.savefig(ROOT+'dimensionality_reduction/latent_scatter_{}_ypred_{}_{}.png'
+                    .format(name, 'RFR+GP', 'asyn'), dpi=300)
         plt.close()
 
         plt.figure()
         plt.scatter(x=coords[labels == 1, 0], y=coords[labels == 1, 1],
                     c=ss.rankdata(df_test_rfr[0]['sigma']), alpha=0.1, cmap='coolwarm')
 
-        plt.savefig(ROOT+'higher dimension/{}/{}/latent_scatter_{}_var_{}{}.png'
-                    .format(file,title, name, 'RFR+GP', 'asyn'), dpi=300)
+        plt.savefig(ROOT+'dimensionality_reduction/latent_scatter_{}_var_{}_{}.png'
+                    .format(name, 'RFR+GP', 'asyn'), dpi=300)
         plt.close()
 
         plt.figure()
         plt.scatter(x=coords[labels == 1, 0], y=coords[labels == 1, 1],
                     c=df_test_rfr[0]['acquire'], alpha=0.1, cmap='YlGnBu')
 
-        plt.savefig(ROOT+'higher dimension/{}/{}/latent_scatter_{}_acq_{}{}.png'
-                    .format(file,title, name, 'RFR+GP', 'asyn'), dpi=300)
+        plt.savefig(ROOT+'dimensionality_reduction/latent_scatter_{}_acq_{}_{}.png'
+                    .format(name, 'RFR+GP', 'asyn'), dpi=300)
         plt.close()
  
 
-
+graph_parent('example')

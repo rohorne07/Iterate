@@ -1,11 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import random
 from sklearn.model_selection import learning_curve
 from sklearn.model_selection import ShuffleSplit
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import Matern, ConstantKernel as C
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
+
 
 
 import pandas as pd
@@ -38,7 +40,6 @@ def train_test(df_pred, df_test, feature):
     scaler = StandardScaler()
     scaler = scaler.fit(X_obs)
     X_obs = scaler.fit_transform(X_obs)
-    # y_obs = np.exp(y_obs)
     
     df_test['Feat_list'] = df_test[feature].apply(str_to_list)
     X_test = list(df_test['Feat_list'])

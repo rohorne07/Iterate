@@ -3,6 +3,7 @@ import random
 import pandas as pd
 import numpy as np
 import os
+import warnings
 from matplotlib import pyplot as plt
 
 from statsmodels.formula.api import ols
@@ -19,6 +20,7 @@ from sklearn.ensemble import RandomForestRegressor
 
 np.random.seed(1)
 random.seed(1)
+warnings.filterwarnings('ignore')
 
 def str_to_list(string,
                 Feat_length1,
@@ -43,7 +45,7 @@ def str_to_list(string,
 def random_sample(path,
                   n=100,
                   random_state=1,
-                  scoring='Score'):
+                  scoring='VINA'):
     
     '''
     
@@ -63,7 +65,7 @@ def random_sample(path,
 
 def new_train(df_path,
               df_pred,
-              scoring='Score'):
+              scoring='VINA'):
     
     '''
     
@@ -132,12 +134,12 @@ def Violin_plot(dataframe,
     
     ax2 = sns.violinplot(x="Iteration", y=scoring, data=dataframe)
     fig2 = ax2.get_figure()
-    fig2.savefig(output_fig + f'{number} Score.png', dpi=300)
+    fig2.savefig(output_fig + f'{number} VINA.png', dpi=300)
     
     plt.clf()
     ax3 = sns.violinplot(x="Iteration", y="y_pred", data=dataframe)
     fig3 = ax3.get_figure()
-    fig3.savefig(output_fig + f'{number} Pred_Score.png', dpi=300)
+    fig3.savefig(output_fig + f'{number} Pred_VINA.png', dpi=300)
     return None
 
 
@@ -161,23 +163,23 @@ def Box_plot(dataframe,
     ax2 = sns.boxplot(x="Iteration", y=scoring, data=dataframe, palette='viridis')
     
     if scoring == 'FRED':
-        ax2.axhline(-8.681415, ls='--')  #-8.681415
+        ax2.axhline(-8.681415, ls='--') 
     else:
         ax2.axhline(-8., ls='--')
         
     fig2 = ax2.get_figure()
-    fig2.savefig(output_fig + f'{number} Score{j}.png', dpi=300)
+    fig2.savefig(output_fig + f'{number} VINA_{j}.png', dpi=300)
 
     plt.clf()
     ax3 = sns.boxplot(x="Iteration", y="y_pred", data=dataframe, palette='viridis')
     
     if scoring == 'FRED':
-        ax3.axhline(-8.681415, ls='--')  #-8.681415
+        ax3.axhline(-8.681415, ls='--')  
     else:
         ax3.axhline(-8., ls='--')
         
     fig3 = ax3.get_figure()
-    fig3.savefig(output_fig + f'{number} Pred_Score{j}.png', dpi=300)
+    fig3.savefig(output_fig + f'{number} Pred_VINA_{j}.png', dpi=300)
     return None
 
 
@@ -204,7 +206,7 @@ def iterate_residuals(kernel,
                       output_fig_path,
                       algorithm=None,
                       uncertainty=0.1,
-                      scoring='Score',
+                      scoring='VINA',
                       Feat_length1=0,
                       Feat_length2=56,):
     
@@ -384,9 +386,9 @@ def iterate_residuals(kernel,
         
         df2 = pd.DataFrame(info_wholeset)
         df2.columns = ['Iteration', 
-                       'Pred_Score_Mean',
+                       'Pred_VINA_Mean',
                        'Uncertainty_Mean',
-                       'Score_Mean',
+                       'VINA_Mean',
                        'Score_obs',
                        'Score_test',
                        'MSE', 
@@ -399,9 +401,9 @@ def iterate_residuals(kernel,
                        'Normality']
         df3 = pd.DataFrame(info_predicted)
         df3.columns = ['Iteration', 
-                       'Pred_Score_Mean',
+                       'Pred_VINA_Mean',
                        'Uncertainty_Mean',
-                       'Score_Mean',
+                       'VINA_Mean',
                        'Score_obs',
                        'Score_test',
                        'MSE', 
@@ -419,6 +421,10 @@ def iterate_residuals(kernel,
                        'Normality',
                        'No. of hits']
         
+        plt.clf()
+        sns.violinplot(data=df_test, y='VINA')
+        plt.title('Test Set Distribution')
+
         df_summ.to_csv(output_path + f'{j}predictedfulldata.csv')
         df2.to_csv(output_path + f'{j}summarytestset.csv')
         df3.to_csv(output_path + f'{j}summarytop100.csv')
@@ -435,8 +441,8 @@ algorithm = RandomForestRegressor(bootstrap= False,
                                  random_state=1)
 ROOT = '../data/'
 og_path = ROOT+'zinc.csv'
-os.mkdir(ROOT+'ITERATION/Summary/')
-os.mkdir(ROOT+'ITERATION/Figures/')
+os.makedirs(ROOT+'ITERATION/Summary/')
+os.makedirs(ROOT+'ITERATION/Figures/')
 output_path = ROOT+'ITERATION/Summary/'
 output_fig_path = ROOT+'ITERATION/Figures/'
 
