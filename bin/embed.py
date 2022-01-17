@@ -12,7 +12,7 @@ features
 #%% Embed dataframe of smiles
 import pandas as pd
 
-df = pd.read_csv('path_to_dir')
+df = pd.read_csv('../data/zinc.csv')
 
 df.head()
 df.shape
@@ -39,6 +39,5 @@ for entry in lst:
 
 df['Feature'] = representation
 
-#note the other functions require commma separated values to process, so convert
-#to a list for this purpose
+#note the other functions require commma separated values to process once read from a dataframe
 
