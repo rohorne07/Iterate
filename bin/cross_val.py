@@ -10,6 +10,7 @@ from sklearn.metrics import r2_score
 
 import pandas as pd
 np.random.seed(1)
+random.seed(1)
 
 from sklearn.preprocessing import StandardScaler
 
