@@ -1,3 +1,2 @@
 torch==1.9.1
 rdkit==2020.09.1
-jtnnencoder==0.1
