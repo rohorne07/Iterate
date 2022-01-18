@@ -2,7 +2,7 @@ import torch
 import numpy as np
 from typing import List
 from pathlib import Path
-from .jtnn import JTNNVAE, Vocab
+from jtnn import JTNNVAE, Vocab
 
 
 MODEL_PATH = str(Path(__file__).parent.resolve()) + '/models/model.iter-4'
