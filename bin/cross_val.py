@@ -158,7 +158,7 @@ kernel2 = C(1.0, 'fixed') * Matern(length_scale=1.0, length_scale_bounds='fixed'
 gp2 = GaussianProcessRegressor(kernel=kernel2, n_restarts_optimizer=9, normalize_y=True)
 
 algorithm = RandomForestRegressor(bootstrap= False,
-                                 max_depth = 100,
+                                 max_depth = 50,
                                  max_features = 'log2',
                                  min_samples_leaf = 2,
                                  min_samples_split = 2,
