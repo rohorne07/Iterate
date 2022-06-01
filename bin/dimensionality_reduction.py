@@ -23,7 +23,7 @@ mpl.rc('ytick', labelsize=12)
 
 
 algorithm = RandomForestRegressor(bootstrap= False,
-                                 max_depth = 100,
+                                 max_depth = 50,
                                  max_features = 'log2',
                                  min_samples_leaf = 2,
                                  min_samples_split = 2,
