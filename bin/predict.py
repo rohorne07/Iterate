@@ -229,7 +229,7 @@ def RUN(filename1,):
     df_final.to_csv(output_path+f'Top_100_Aggregated_{filename1}.csv')
 
 algorithm = RandomForestRegressor(bootstrap= False,
-                                 max_depth = 100,
+                                 max_depth = 50,
                                  max_features = 'log2',
                                  min_samples_leaf = 2,
                                  min_samples_split = 2,
