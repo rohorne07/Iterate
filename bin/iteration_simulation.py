@@ -432,7 +432,7 @@ def iterate_residuals(kernel,
 
 
 kernel = C(1., 'fixed') * Matern(length_scale=1.0, length_scale_bounds='fixed', nu=1.5)
-algorithm = RandomForestRegressor(bootstrap= False,
+algorithm = RandomForestRegressor(
                                  max_depth = 50,
                                  max_features = 'log2',
                                  min_samples_leaf = 2,
