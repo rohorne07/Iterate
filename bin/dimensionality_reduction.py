@@ -22,7 +22,7 @@ mpl.rc('xtick', labelsize=12)
 mpl.rc('ytick', labelsize=12)
 
 
-algorithm = RandomForestRegressor(bootstrap= False,
+algorithm = RandomForestRegressor(
                                  max_depth = 50,
                                  max_features = 'log2',
                                  min_samples_leaf = 2,
