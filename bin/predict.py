@@ -228,13 +228,13 @@ def RUN(filename1,):
     df_final = molecule_count_rfr56_grouped.merge(molecule_count_rfr56, how = 'left', on = 'PCID')
     df_final.to_csv(output_path+f'Top_100_Aggregated_{filename1}.csv')
 
-algorithm = RandomForestRegressor(
-                                 max_depth = 50,
+algorithm = RandomForestRegressor(max_depth = 50,
                                  max_features = 'log2',
                                  min_samples_leaf = 2,
                                  min_samples_split = 2,
                                  n_estimators = 950,
                                  random_state=1)
+                               
 kernel = C(1., 'fixed') * Matern(length_scale=1.0, length_scale_bounds='fixed', nu=1.5)
 
 
