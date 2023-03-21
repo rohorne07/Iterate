@@ -152,8 +152,7 @@ class estimator_pipeline(BaseEstimator):
     def score(self, y, y2):
         return r2_score(y, y2)
 
-# path = '../data/zinc.csv'
-path = '/Users/rohorne07/Library/Mobile Documents/com~apple~CloudDocs/Documents/PhD/Paper_1/Iterate-main/data/zinc.csv'
+path = '../data/zinc.csv'
 df_pred, df_test = random_sample(path, 4000, 'VINA')
 X_obs, y_obs, X_test, y_test = train_test(df_pred, df_test, 'Feature_half')
 
