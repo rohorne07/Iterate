@@ -432,13 +432,13 @@ def iterate_residuals(kernel,
 
 
 kernel = C(1., 'fixed') * Matern(length_scale=1.0, length_scale_bounds='fixed', nu=1.5)
-algorithm = RandomForestRegressor(
-                                 max_depth = 50,
+algorithm = RandomForestRegressor(max_depth = 50,
                                  max_features = 'log2',
                                  min_samples_leaf = 2,
                                  min_samples_split = 2,
                                  n_estimators = 950,
                                  random_state=1)
+                       
 ROOT = '../data/'
 og_path = ROOT+'zinc.csv'
 os.makedirs(ROOT+'ITERATION/Summary/')
