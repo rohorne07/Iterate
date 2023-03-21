@@ -157,13 +157,13 @@ X_obs, y_obs, X_test, y_test = train_test(df_pred, df_test, 'Feature_half')
 kernel2 = C(1.0, 'fixed') * Matern(length_scale=1.0, length_scale_bounds='fixed', nu=1.5)
 gp2 = GaussianProcessRegressor(kernel=kernel2, n_restarts_optimizer=9, normalize_y=True)
 
-algorithm = RandomForestRegressor(
-                                 max_depth = 50,
+algorithm = RandomForestRegressor(max_depth = 50,
                                  max_features = 'log2',
                                  min_samples_leaf = 2,
                                  min_samples_split = 2,
                                  n_estimators = 950,
                                  random_state=1)
+                          
 
 est = estimator_pipeline(algorithm, gp2)
 
