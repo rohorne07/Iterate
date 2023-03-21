@@ -11,7 +11,8 @@ from sklearn.gaussian_process.kernels import Matern, ConstantKernel as C
 import scipy.stats as ss
 from sklearn.ensemble import RandomForestRegressor
 
-from predict import run_algorithm_residuals
+from helper import run_algorithm_residuals
+
 
 
 random.seed(1)
@@ -22,13 +23,13 @@ mpl.rc('xtick', labelsize=12)
 mpl.rc('ytick', labelsize=12)
 
 
-algorithm = RandomForestRegressor(
-                                 max_depth = 50,
+algorithm = RandomForestRegressor(max_depth = 50,
                                  max_features = 'log2',
                                  min_samples_leaf = 2,
                                  min_samples_split = 2,
                                  n_estimators = 950,
                                  random_state=1)
+                              
 kernel = C(1., 'fixed') * Matern(length_scale=1.0, length_scale_bounds='fixed', nu=1.5)
 
 ROOT = '../data/'

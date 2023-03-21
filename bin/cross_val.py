@@ -8,7 +8,9 @@ from sklearn.gaussian_process.kernels import Matern, ConstantKernel as C
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 
-
+import os
+cwd = os.getcwd()
+print(cwd)
 
 import pandas as pd
 np.random.seed(1)
@@ -150,8 +152,9 @@ class estimator_pipeline(BaseEstimator):
     def score(self, y, y2):
         return r2_score(y, y2)
 
-
-df_pred, df_test = random_sample('../data/zinc.csv', 4000, 'VINA')
+# path = '../data/zinc.csv'
+path = '/Users/rohorne07/Library/Mobile Documents/com~apple~CloudDocs/Documents/PhD/Paper_1/Iterate-main/data/zinc.csv'
+df_pred, df_test = random_sample(path, 4000, 'VINA')
 X_obs, y_obs, X_test, y_test = train_test(df_pred, df_test, 'Feature_half')
 
 kernel2 = C(1.0, 'fixed') * Matern(length_scale=1.0, length_scale_bounds='fixed', nu=1.5)
@@ -163,7 +166,7 @@ algorithm = RandomForestRegressor(max_depth = 50,
                                  min_samples_split = 2,
                                  n_estimators = 950,
                                  random_state=1)
-                          
+                                
 
 est = estimator_pipeline(algorithm, gp2)
 

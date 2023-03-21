@@ -195,7 +195,7 @@ def RUN(filename1,):
     df_top100_rfr = []
     df_test_rfr = []
     
-    
+    z=0
     for i in [1,10,100,1000,10000,100000,1000000, 10000000, 100000000, 42]:
         df_top100rfr, df_testrfr, feat_importance, X_obs, y_obs, X_test = run_algorithm_residuals(og_path,
         og_path2,
@@ -212,6 +212,8 @@ def RUN(filename1,):
         
         df_top100_rfr.append(df_top100rfr)
         df_test_rfr.append(df_testrfr)
+        z+=1
+        print(f'Iteration {z} of 10')
         
     dfTOP_RFR56 = pd.concat(df_top100_rfr)
     dfTEST_RFR56 = pd.concat(df_test_rfr)
@@ -234,7 +236,8 @@ algorithm = RandomForestRegressor(max_depth = 50,
                                  min_samples_split = 2,
                                  n_estimators = 950,
                                  random_state=1)
-                               
+
+                         
 kernel = C(1., 'fixed') * Matern(length_scale=1.0, length_scale_bounds='fixed', nu=1.5)
 
 

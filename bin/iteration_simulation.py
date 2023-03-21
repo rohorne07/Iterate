@@ -438,9 +438,10 @@ algorithm = RandomForestRegressor(max_depth = 50,
                                  min_samples_split = 2,
                                  n_estimators = 950,
                                  random_state=1)
-                       
+                                 
 ROOT = '../data/'
 og_path = ROOT+'zinc.csv'
+df_pred, df_test = random_sample(og_path, 4000, 1, 'VINA')
 os.makedirs(ROOT+'ITERATION/Summary/')
 os.makedirs(ROOT+'ITERATION/Figures/')
 output_path = ROOT+'ITERATION/Summary/'
