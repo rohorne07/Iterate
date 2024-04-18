@@ -16,6 +16,6 @@ The bin file contains some example functions for carrying out the methods used i
 
 Notes: 
 - For use of the jtnnencoder, a separate environment using Python 3.6.13 is required, and the module versions specified in requirements_encoder.txt
-- Values required for the CNS_MPO function can be acquired via JChem
+- Molecular property values required for the CNS_MPO function can be acquired via JChem
 
 
