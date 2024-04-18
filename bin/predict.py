@@ -213,7 +213,7 @@ def RUN(filename1,):
         df_top100_rfr.append(df_top100rfr)
         df_test_rfr.append(df_testrfr)
         z+=1
-        print(f'Iteration {z} of 10')
+        print(f'Run {z} of 10')
         
     dfTOP_RFR56 = pd.concat(df_top100_rfr)
     dfTEST_RFR56 = pd.concat(df_test_rfr)
