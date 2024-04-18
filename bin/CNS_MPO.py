@@ -1,7 +1,9 @@
+import pandas as pd
 from rdkit import Chem
 from rdkit.Chem import Crippen
 from rdkit.Chem import Lipinski
 from rdkit.Chem import Descriptors
+
 
 class SmilesError(Exception): pass
 
@@ -107,19 +109,22 @@ def cns_mpo(value, entry_type=None):
         print("Warning: wrong field in the CNS_MPO calculations")
         return None
 
-ROOT = "../data/zinc.csv"
 
-import pandas as pd
 
-df = pd.read_csv(ROOT)
-df = df[~df['Mol Weight'].str.startswith('Error')]
+def compute_params(path,):
+    df = pd.read_csv(path)
+    df = df[~df['Mol Weight'].str.startswith('Error')]
+    df['MPO_MW'] = df['Mol Weight'].apply(float).apply(cns_mpo, args=('Mol Weight',))
+    df['MPO_logD'] = df['LogD'].apply(float).apply(cns_mpo, args=('LogD',))
+    df['MPO_logP'] = df['LogP'].apply(float).apply(cns_mpo, args=('LogP',))
+    df['MPO_basicpKa'] = df['Basic pKa'].apply(float).apply(cns_mpo, args=('Strongest basic pKa',))
+    df['MPO_TPSA'] = df['TPSA'].apply(float).apply(cns_mpo, args=('TPSA',))
+    df['MPO_HBD'] = df['HBD'].apply(float).apply(cns_mpo, args=('H bond donors',))
+    df['CNS_MPO'] = df[['MPO_MW', 'MPO_logD', 'MPO_logP', 'MPO_basicpKa', 'MPO_TPSA', 'MPO_HBD']].sum(axis=1)
+    return df
 
-df['MPO_MW'] = df['Mol Weight'].apply(float).apply(cns_mpo, args=('Mol Weight',))
-df['MPO_logD'] = df['LogD'].apply(float).apply(cns_mpo, args=('LogD',))
-df['MPO_logP'] = df['LogP'].apply(float).apply(cns_mpo, args=('LogP',))
-df['MPO_basicpKa'] = df['Basic pKa'].apply(float).apply(cns_mpo, args=('Strongest basic pKa',))
-df['MPO_TPSA'] = df['TPSA'].apply(float).apply(cns_mpo, args=('TPSA',))
-df['MPO_HBD'] = df['HBD'].apply(float).apply(cns_mpo, args=('H bond donors',))
-df['CNS_MPO'] = df[['MPO_MW', 'MPO_logD', 'MPO_logP', 'MPO_basicpKa', 'MPO_TPSA', 'MPO_HBD']].sum(axis=1)
-
-df.to_csv(ROOT+'_MPO.csv')
+#usage: python CNS_MPO.py
+if __name__ == "__main__":
+    ROOT = "../data/"
+    df = compute_params(ROOT+'zinc.csv')
+    df.to_csv(ROOT+'zinc_MPO.csv')

@@ -230,25 +230,26 @@ def RUN(filename1,):
     df_final = molecule_count_rfr56_grouped.merge(molecule_count_rfr56, how = 'left', on = 'PCID')
     df_final.to_csv(output_path+f'Top_100_Aggregated_{filename1}.csv')
 
-algorithm = RandomForestRegressor(max_depth = 50,
-                                 max_features = 'log2',
-                                 min_samples_leaf = 2,
-                                 min_samples_split = 2,
-                                 n_estimators = 950,
-                                 random_state=1)
+#usage: python predict.py
+if __name__ == "__main__":
+    algorithm = RandomForestRegressor(max_depth = 50,
+                                    max_features = 'log2',
+                                    min_samples_leaf = 2,
+                                    min_samples_split = 2,
+                                    n_estimators = 950,
+                                    random_state=1)
 
-                         
-kernel = C(1., 'fixed') * Matern(length_scale=1.0, length_scale_bounds='fixed', nu=1.5)
+                            
+    kernel = C(1., 'fixed') * Matern(length_scale=1.0, length_scale_bounds='fixed', nu=1.5)
 
 
-ROOT = '../data/'
+    ROOT = '../data/'
 
-og_path = ROOT + 'docker.csv'
-og_path2 = ROOT + 'zinc.csv'
+    og_path = ROOT + 'docker.csv'
+    og_path2 = ROOT + 'zinc.csv'
 
-os.makedirs(ROOT + 'Prediction')
-output_path = ROOT + 'Prediction/'
+    os.makedirs(ROOT + 'Prediction')
+    output_path = ROOT + 'Prediction/'
 
-    
-RUN('ITERATION')    
+    RUN('ITERATION')    
     

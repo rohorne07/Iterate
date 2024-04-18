@@ -430,35 +430,37 @@ def iterate_residuals(kernel,
         df3.to_csv(output_path + f'{j}summarytop100.csv')
     return df2
 
+#usage: python iteration_simulation.py
+if __name__ == "__main__":
+    
+    kernel = C(1., 'fixed') * Matern(length_scale=1.0, length_scale_bounds='fixed', nu=1.5)
+    algorithm = RandomForestRegressor(max_depth = 50,
+                                    max_features = 'log2',
+                                    min_samples_leaf = 2,
+                                    min_samples_split = 2,
+                                    n_estimators = 950,
+                                    random_state=1)
+                                    
+    ROOT = '../data/'
+    og_path = ROOT+'zinc.csv'
+    df_pred, df_test = random_sample(og_path, 4000, 1, 'VINA')
+    os.makedirs(ROOT+'ITERATION/Summary/')
+    os.makedirs(ROOT+'ITERATION/Figures/')
+    output_path = ROOT+'ITERATION/Summary/'
+    output_fig_path = ROOT+'ITERATION/Figures/'
 
-kernel = C(1., 'fixed') * Matern(length_scale=1.0, length_scale_bounds='fixed', nu=1.5)
-algorithm = RandomForestRegressor(max_depth = 50,
-                                 max_features = 'log2',
-                                 min_samples_leaf = 2,
-                                 min_samples_split = 2,
-                                 n_estimators = 950,
-                                 random_state=1)
-                                 
-ROOT = '../data/'
-og_path = ROOT+'zinc.csv'
-df_pred, df_test = random_sample(og_path, 4000, 1, 'VINA')
-os.makedirs(ROOT+'ITERATION/Summary/')
-os.makedirs(ROOT+'ITERATION/Figures/')
-output_path = ROOT+'ITERATION/Summary/'
-output_fig_path = ROOT+'ITERATION/Figures/'
-
-summary = iterate_residuals(kernel,
-                            og_path,
-                            10,
-                            10,
-                            output_path,
-                            output_fig_path,
-                            algorithm,
-                            uncertainty=0.1,
-                            scoring='VINA',
-                            Feat_length1=0,
-                            Feat_length2=56,
-                            )
+    summary = iterate_residuals(kernel,
+                                og_path,
+                                10,
+                                10,
+                                output_path,
+                                output_fig_path,
+                                algorithm,
+                                uncertainty=0.1,
+                                scoring='VINA',
+                                Feat_length1=0,
+                                Feat_length2=56,
+                                )
 
 
 

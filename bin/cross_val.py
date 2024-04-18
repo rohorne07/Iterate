@@ -7,6 +7,8 @@ from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import Matern, ConstantKernel as C
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
+from sklearn.base import BaseEstimator
+from sklearn.utils.validation import check_is_fitted
 
 import os
 cwd = os.getcwd()
@@ -129,9 +131,6 @@ def plot_learning_curve(estimator, title, X, y, axes=None, ylim=None, cv=None,
 
 
 
-from sklearn.base import BaseEstimator
-from sklearn.utils.validation import check_is_fitted
-
 
 class estimator_pipeline(BaseEstimator):
     def __init__(self, algorithm, gp2):
@@ -152,42 +151,41 @@ class estimator_pipeline(BaseEstimator):
     def score(self, y, y2):
         return r2_score(y, y2)
 
-path = '../data/zinc.csv'
-df_pred, df_test = random_sample(path, 4000, 'VINA')
-X_obs, y_obs, X_test, y_test = train_test(df_pred, df_test, 'Feature_half')
+#usage: python cross_val.py
+if __name__ == "__main__":
+    path = '../data/zinc.csv'
+    df_pred, df_test = random_sample(path, 4000, 'VINA')
+    X_obs, y_obs, X_test, y_test = train_test(df_pred, df_test, 'Feature')
 
-kernel2 = C(1.0, 'fixed') * Matern(length_scale=1.0, length_scale_bounds='fixed', nu=1.5)
-gp2 = GaussianProcessRegressor(kernel=kernel2, n_restarts_optimizer=9, normalize_y=True)
+    kernel2 = C(1.0, 'fixed') * Matern(length_scale=1.0, length_scale_bounds='fixed', nu=1.5)
+    gp2 = GaussianProcessRegressor(kernel=kernel2, n_restarts_optimizer=9, normalize_y=True)
 
-algorithm = RandomForestRegressor(max_depth = 50,
-                                 max_features = 'log2',
-                                 min_samples_leaf = 2,
-                                 min_samples_split = 2,
-                                 n_estimators = 950,
-                                 random_state=1)
-                                
+    algorithm = RandomForestRegressor(bootstrap=False,
+                                    max_depth = 50,
+                                    max_features = 'log2',
+                                    min_samples_leaf = 2,
+                                    min_samples_split = 2,
+                                    n_estimators = 950,
+                                    random_state=1)
+                                    
 
-est = estimator_pipeline(algorithm, gp2)
+    est = estimator_pipeline(algorithm, gp2)
 
+    fig, axes = plt.subplots(3, 2, figsize=(10, 15))
 
-fig, axes = plt.subplots(3, 2, figsize=(10, 15))
-
-X, y = X_obs, y_obs
-
-
-title = r"Learning Curves (GP)"
-cv = ShuffleSplit(n_splits=10, test_size=0.2, random_state=0)
-estimator = gp2
-plot_learning_curve(estimator, title, X, y, axes=axes[:, 0], ylim=(0, 1.01),
-                cv=cv, n_jobs=4)
-
-
-title = r"Learning Curves (GP x RFR)"
-estimator = est
-plot_learning_curve(estimator, title, X, y, axes=axes[:, 1], ylim=(0, 1.01),
+    title = r"Learning Curves (GP)"
+    cv = ShuffleSplit(n_splits=10, test_size=0.2, random_state=0)
+    estimator = gp2
+    plot_learning_curve(estimator, title, X_obs, y_obs, axes=axes[:, 0], ylim=(0, 1.01),
                     cv=cv, n_jobs=4)
-plt.tight_layout()
-plt.show()
+
+
+    title = r"Learning Curves (GP x RFR)"
+    estimator = est
+    plot_learning_curve(estimator, title, X_obs, y_obs, axes=axes[:, 1], ylim=(0, 1.01),
+                        cv=cv, n_jobs=4)
+    plt.tight_layout()
+    fig.savefig('../data/learning_curve_example.png', dpi=300)
 
 
 
